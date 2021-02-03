@@ -1,0 +1,1974 @@
+Setup
+The questions below will give you feedback on your work. Run the following cell to set up the feedback system.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+from learntools.core import binder
+binder.bind(globals())
+from learntools.data_cleaning.ex1 import *
+print("Setup Complete")
+/opt/conda/lib/python3.7/site-packages/IPython/core/interactiveshell.py:3338: DtypeWarning: Columns (22,32) have mixed types.Specify dtype option on import or set low_memory=False.
+  if (await self.run_code(code, result,  async_=asy)):
+Setup Complete
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+​
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+1) Take a first look at the data
+Run the next code cell to load in the libraries and dataset you'll use to complete the exercise.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# modules we'll use
+import pandas as pd
+import numpy as np
+​
+# read in all our data
+sf_permits = pd.read_csv("../input/building-permit-applications-data/Building_Permits.csv")
+​
+# set seed for reproducibility
+np.random.seed(0) 
+/opt/conda/lib/python3.7/site-packages/IPython/core/interactiveshell.py:3147: DtypeWarning: Columns (22,32) have mixed types.Specify dtype option on import or set low_memory=False.
+  interactivity=interactivity, compiler=compiler, result=result)
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+Use the code cell below to print the first five rows of the sf_permits DataFrame.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# TODO: Your code here!
+sf_permits.head()
+​
+Permit Number	Permit Type	Permit Type Definition	Permit Creation Date	Block	Lot	Street Number	Street Number Suffix	Street Name	Street Suffix	...	Existing Construction Type	Existing Construction Type Description	Proposed Construction Type	Proposed Construction Type Description	Site Permit	Supervisor District	Neighborhoods - Analysis Boundaries	Zipcode	Location	Record ID
+0	201505065519	4	sign - erect	05/06/2015	0326	023	140	NaN	Ellis	St	...	3.0	constr type 3	NaN	NaN	NaN	3.0	Tenderloin	94102.0	(37.785719256680785, -122.40852313194863)	1380611233945
+1	201604195146	4	sign - erect	04/19/2016	0306	007	440	NaN	Geary	St	...	3.0	constr type 3	NaN	NaN	NaN	3.0	Tenderloin	94102.0	(37.78733980600732, -122.41063199757738)	1420164406718
+2	201605278609	3	additions alterations or repairs	05/27/2016	0595	203	1647	NaN	Pacific	Av	...	1.0	constr type 1	1.0	constr type 1	NaN	3.0	Russian Hill	94109.0	(37.7946573324287, -122.42232562979227)	1424856504716
+3	201611072166	8	otc alterations permit	11/07/2016	0156	011	1230	NaN	Pacific	Av	...	5.0	wood frame (5)	5.0	wood frame (5)	NaN	3.0	Nob Hill	94109.0	(37.79595867909168, -122.41557405519474)	1443574295566
+4	201611283529	6	demolitions	11/28/2016	0342	001	950	NaN	Market	St	...	3.0	constr type 3	NaN	NaN	NaN	6.0	Tenderloin	94102.0	(37.78315261897309, -122.40950883997789)	144548169992
+5 rows × 43 columns
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+Does the dataset have any missing values? Once you have an answer, run the code cell below to get credit for your work.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# Check your answer (Run this code cell to receive credit!)
+q1.check()
+Correct:
+
+The first five rows of the data does show that several columns have missing values. You can see this in the "Street Number Suffix", "Proposed Construction Type" and "Site Permit" columns, among others.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# Line below will give you a hint
+q1.hint()
+sf_permits.head()
+Hint: Use sf_permits.head() to view the first five rows of the data.
+
+Permit Number	Permit Type	Permit Type Definition	Permit Creation Date	Block	Lot	Street Number	Street Number Suffix	Street Name	Street Suffix	...	Existing Construction Type	Existing Construction Type Description	Proposed Construction Type	Proposed Construction Type Description	Site Permit	Supervisor District	Neighborhoods - Analysis Boundaries	Zipcode	Location	Record ID
+0	201505065519	4	sign - erect	05/06/2015	0326	023	140	NaN	Ellis	St	...	3.0	constr type 3	NaN	NaN	NaN	3.0	Tenderloin	94102.0	(37.785719256680785, -122.40852313194863)	1380611233945
+1	201604195146	4	sign - erect	04/19/2016	0306	007	440	NaN	Geary	St	...	3.0	constr type 3	NaN	NaN	NaN	3.0	Tenderloin	94102.0	(37.78733980600732, -122.41063199757738)	1420164406718
+2	201605278609	3	additions alterations or repairs	05/27/2016	0595	203	1647	NaN	Pacific	Av	...	1.0	constr type 1	1.0	constr type 1	NaN	3.0	Russian Hill	94109.0	(37.7946573324287, -122.42232562979227)	1424856504716
+3	201611072166	8	otc alterations permit	11/07/2016	0156	011	1230	NaN	Pacific	Av	...	5.0	wood frame (5)	5.0	wood frame (5)	NaN	3.0	Nob Hill	94109.0	(37.79595867909168, -122.41557405519474)	1443574295566
+4	201611283529	6	demolitions	11/28/2016	0342	001	950	NaN	Market	St	...	3.0	constr type 3	NaN	NaN	NaN	6.0	Tenderloin	94102.0	(37.78315261897309, -122.40950883997789)	144548169992
+5 rows × 43 columns
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+2) How many missing data points do we have?
+What percentage of the values in the dataset are missing? Your answer should be a number between 0 and 100. (If 1/4 of the values in the dataset are missing, the answer is 25.)
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# TODO: Your code here!
+missing_value_count=sf_permits.isnull().sum()
+missing_value_count[0:10]
+total_cells=np.product(sf_permits.shape)
+total_missing=missing_value_count.sum()
+percent_missing=(total_missing/total_cells)*100
+print(percent_missing)
+# Check your answer
+q2.check()
+26.26002315058403
+Correct
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# Lines below will give you a hint or solution code
+#q2.hint()
+#q2.solution()
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+3) Figure out why the data is missing
+Look at the columns "Street Number Suffix" and "Zipcode" from the San Francisco Building Permits dataset. Both of these contain missing values.
+
+Which, if either, are missing because they don't exist?
+Which, if either, are missing because they weren't recorded?
+Once you have an answer, run the code cell below.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# Check your answer (Run this code cell to receive credit!)
+q3.check()
+Correct:
+
+If a value in the "Street Number Suffix" column is missing, it is likely because it does not exist. If a value in the "Zipcode" column is missing, it was not recorded.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+#
+# Line below will give you a hint
+#q3.hint()
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+4) Drop missing values: rows
+If you removed all of the rows of sf_permits with missing values, how many rows are left?
+
+Note: Do not change the value of sf_permits when checking this.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+columns_with_na_dropped.shape[1]
+# TODO: Your code here!
+missing_value_count[0:10]
+columns_with_na_dropped=sf_permits.dropna(axis=1)
+columns_with_na_dropped.head()
+#checking how much percent of the data we have lost
+print("columns in original data set : %d \n" % sf_permits.shape[1] )
+print("columns with na's dropped : %d \n" % columns_with_na_dropped.shape[1] )
+​
+​
+​
+columns in original data set : 43 
+
+columns with na's dropped : 12 
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+Once you have an answer, run the code cell below.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# Check your answer (Run this code cell to receive credit!)
+q4.check()
+Correct:
+
+There are no rows remaining in the dataset!
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# Line below will give you a hint
+#q4.hint()
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+5) Drop missing values: columns
+Now try removing all the columns with empty values.
+
+Create a new DataFrame called sf_permits_with_na_dropped that has all of the columns with empty values removed.
+How many columns were removed from the original sf_permits DataFrame? Use this number to set the value of the dropped_columns variable below.
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# TODO: Your code here
+columns_with_na_dropped.head()
+total_cols=sf_permits.shape[1]
+dropped=columns_with_na_dropped.shape[1]
+dropped_columns = total_cols - dropped
+​
+# Check your answer
+q5.check()
+Correct
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+#
+# Lines below will give you a hint or solution code
+#q5.hint()
+#q5.solution()
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+6) Fill in missing values automatically
+Try replacing all the NaN's in the sf_permits data with the one that comes directly after it and then replacing any remaining NaN's with 0. Set the result to a new DataFrame sf_permits_with_na_imputed.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+)
+# TODO: Your code here
+subset_sf_permits = sf_permits
+subset_sf_permits
+sf_permits_with_na_imputed = subset_sf_permits.fillna(method='bfill', axis=0).fillna(0)
+​
+​
+​
+# Check your answer
+q6.check()
+Correct
+
+
+
+part 2
+Scaling and Normalization
+Setup
+The questions below will give you feedback on your work. Run the following cell to set up the feedback system.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+from learntools.core import binder
+binder.bind(globals())
+from learntools.data_cleaning.ex2 import *
+print("Setup Complete")
+Setup Complete
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+Get our environment set up
+To practice scaling and normalization, we're going to use a dataset of Kickstarter campaigns. (Kickstarter is a website where people can ask people to invest in various projects and concept products.)
+
+The next code cell loads in the libraries and dataset we'll be using.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# modules we'll use
+import pandas as pd
+import numpy as np
+​
+# for Box-Cox Transformation
+from scipy import stats
+​
+# for min_max scaling
+from mlxtend.preprocessing import minmax_scaling
+​
+# plotting modules
+import seaborn as sns
+import matplotlib.pyplot as plt
+​
+# read in all our data
+kickstarters_2017 = pd.read_csv("../input/kickstarter-projects/ks-projects-201801.csv")
+​
+# set seed for reproducibility
+np.random.seed(0)
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+Let's start by scaling the goals of each campaign, which is how much money they were asking for. The plots show a histogram of the values in the "usd_goal_real" column, both before and after scaling.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# select the usd_goal_real column
+original_data = pd.DataFrame(kickstarters_2017.usd_goal_real)
+# scale the goals from 0 to 1
+scaled_data = minmax_scaling(original_data, columns=['usd_goal_real'])
+scaled_data
+# plot the original & scaled data together to compare
+fig, ax=plt.subplots(1,2,figsize=(15,3))
+sns.distplot(kickstarters_2017.usd_goal_real, ax=ax[0])
+ax[0].set_title("Original Data")
+sns.distplot(scaled_data, ax=ax[1])
+ax[1].set_title("Scaled data")
+/opt/conda/lib/python3.7/site-packages/seaborn/distributions.py:2557: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+  warnings.warn(msg, FutureWarning)
+/opt/conda/lib/python3.7/site-packages/seaborn/distributions.py:2557: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+  warnings.warn(msg, FutureWarning)
+Text(0.5, 1.0, 'Scaled data')
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+After scaling, all values lie between 0 and 1 (you can read this in the horizontal axis of the second plot above, and we verify in the code cell below).
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+print('Original data\nPreview:\n', original_data.head())
+print('Minimum value:', float(original_data.min()),
+      '\nMaximum value:', float(original_data.max()))
+print('_'*30)
+​
+print('\nScaled data\nPreview:\n', scaled_data.head())
+print('Minimum value:', float(scaled_data.min()),
+      '\nMaximum value:', float(scaled_data.max()))
+Original data
+Preview:
+    usd_goal_real
+0        1533.95
+1       30000.00
+2       45000.00
+3        5000.00
+4       19500.00
+Minimum value: 0.01 
+Maximum value: 166361390.71
+______________________________
+
+Scaled data
+Preview:
+    usd_goal_real
+0       0.000009
+1       0.000180
+2       0.000270
+3       0.000030
+4       0.000117
+Minimum value: 0.0 
+Maximum value: 1.0
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+1) Practice scaling
+We just scaled the "usd_goal_real" column. What about the "goal" column?
+
+Begin by running the code cell below to create a DataFrame original_goal_data containing the "goal" column.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# select the usd_goal_real column
+original_goal_data = pd.DataFrame(kickstarters_2017.goal)
+original_goal_data
+scaled_data=minmax_scaling(original_data,columns=['usd_goal_real'])
+scaled_data
+usd_goal_real
+0	0.000009
+1	0.000180
+2	0.000270
+3	0.000030
+4	0.000117
+...	...
+378656	0.000301
+378657	0.000009
+378658	0.000090
+378659	0.000090
+378660	0.000012
+378661 rows × 1 columns
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+Use original_goal_data to create a new DataFrame scaled_goal_data with values scaled between 0 and 1. You must use the minimax_scaling() function.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+goal
+# TODO: Your code here
+scaled_goal_data =minmax_scaling(original_goal_data,columns=['goal'])
+scaled_goal_data
+​
+# Check your answer
+q1.check()
+Correct
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+#
+# Lines below will give you a hint or solution code
+#q1.hint()
+#q1.solution()
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+2) Practice normalization
+Now you'll practice normalization. We begin by normalizing the amount of money pledged to each campaign.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# get the index of all positive pledges (Box-Cox only takes positive values)
+index_of_positive_pledges = kickstarters_2017.usd_pledged_real > 0
+index_of_positive_pledges
+​
+#get only positive pledges (using their indexes)
+positive_pledges = kickstarters_2017.usd_pledged_real.loc[index_of_positive_pledges]
+positive_pledges
+​
+# normalize the pledges (w/ Box-Cox)
+normalized_pledges = pd.Series(stats.boxcox(positive_pledges)[0], 
+                               name='usd_pledged_real', index=positive_pledges.index)
+normalized_pledges
+​
+# plot both together to compare
+fig, ax=plt.subplots(1,2,figsize=(15,3))
+sns.distplot(positive_pledges, ax=ax[0])
+ax[0].set_title("Original Data")
+sns.distplot(normalized_pledges, ax=ax[1])
+ax[1].set_title("Normalized data")
+/opt/conda/lib/python3.7/site-packages/seaborn/distributions.py:2557: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+  warnings.warn(msg, FutureWarning)
+/opt/conda/lib/python3.7/site-packages/seaborn/distributions.py:2557: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+  warnings.warn(msg, FutureWarning)
+Text(0.5, 1.0, 'Normalized data')
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+It's not perfect (it looks like a lot pledges got very few pledges) but it is much closer to a normal distribution!
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+print('Original data\nPreview:\n', positive_pledges.head())
+print('Minimum value:', float(positive_pledges.min()),
+      '\nMaximum value:', float(positive_pledges.max()))
+print('_'*30)
+​
+print('\nNormalized data\nPreview:\n', normalized_pledges.head())
+print('Minimum value:', float(normalized_pledges.min()),
+      '\nMaximum value:', float(normalized_pledges.max()))
+Original data
+Preview:
+ 1     2421.0
+2      220.0
+3        1.0
+4     1283.0
+5    52375.0
+Name: usd_pledged_real, dtype: float64
+Minimum value: 0.45 
+Maximum value: 20338986.27
+______________________________
+
+Normalized data
+Preview:
+ 1    10.165142
+2     6.468598
+3     0.000000
+4     9.129277
+5    15.836853
+Name: usd_pledged_real, dtype: float64
+Minimum value: -0.7779954122762203 
+Maximum value: 30.69054020451361
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+We used the "usd_pledged_real" column. Follow the same process to normalize the "pledged" column.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# TODO: Your code here!
+​
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+How does the normalized "usd_pledged_real" column look different from when we normalized the "pledged" column? Or, do they look mostly the same?
+
+Once you have an answer, run the code cell below.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# Check your answer (Run this code cell to receive credit!)
+q2.check()
+Correct:
+
+The distributions in the normalized data look mostly the same.
+
+
+Part 3
+Date Parsing
+
+
+
+Setup
+The questions below will give you feedback on your work. Run the following cell to set up the feedback system.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+from learntools.core import binder
+binder.bind(globals())
+from learntools.data_cleaning.ex3 import *
+print("Setup Complete")
+Setup Complete
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+Get our environment set up
+The first thing we'll need to do is load in the libraries and dataset we'll be using. We'll be working with a dataset containing information on earthquakes that occured between 1965 and 2016.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# modules we'll use
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import datetime
+​
+# read in our data
+earthquakes = pd.read_csv("../input/earthquake-database/database.csv")
+​
+# set seed for reproducibility
+np.random.seed(0)
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+1) Check the data type of our date column
+You'll be working with the "Date" column from the earthquakes dataframe. Investigate this column now: does it look like it contains dates? What is the dtype of the column?
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# TODO: Your code here!
+earthquakes.head()
+print(earthquakes['Date'].head())
+0    01/02/1965
+1    01/04/1965
+2    01/05/1965
+3    01/08/1965
+4    01/09/1965
+Name: Date, dtype: object
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+Once you have answered the question above, run the code cell below to get credit for your work.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# Check your answer (Run this code cell to receive credit!)
+q1.check()
+Correct:
+
+The "Date" column in the earthquakes DataFrame does have dates. The dtype is "object".
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# Line below will give you a hint
+#q1.hint()
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+2) Convert our date columns to datetime
+Most of the entries in the "Date" column follow the same format: "month/day/four-digit year". However, the entry at index 3378 follows a completely different pattern. Run the code cell below to see this.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+earthquakes[3378:3383]
+Date	Time	Latitude	Longitude	Type	Depth	Depth Error	Depth Seismic Stations	Magnitude	Magnitude Type	...	Magnitude Seismic Stations	Azimuthal Gap	Horizontal Distance	Horizontal Error	Root Mean Square	ID	Source	Location Source	Magnitude Source	Status
+3378	1975-02-23T02:58:41.000Z	1975-02-23T02:58:41.000Z	8.017	124.075	Earthquake	623.0	NaN	NaN	5.6	MB	...	NaN	NaN	NaN	NaN	NaN	USP0000A09	US	US	US	Reviewed
+3379	02/23/1975	03:53:36	-21.727	-71.356	Earthquake	33.0	NaN	NaN	5.6	MB	...	NaN	NaN	NaN	NaN	NaN	USP0000A0A	US	US	US	Reviewed
+3380	02/23/1975	07:34:11	-10.879	166.667	Earthquake	33.0	NaN	NaN	5.5	MS	...	NaN	NaN	NaN	NaN	NaN	USP0000A0C	US	US	US	Reviewed
+3381	02/25/1975	05:20:05	-7.388	149.798	Earthquake	33.0	NaN	NaN	5.5	MB	...	NaN	NaN	NaN	NaN	NaN	USP0000A12	US	US	US	Reviewed
+3382	02/26/1975	04:48:55	85.047	97.969	Earthquake	33.0	NaN	NaN	5.6	MS	...	NaN	NaN	NaN	NaN	NaN	USP0000A1H	US	US	US	Reviewed
+5 rows × 21 columns
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+This does appear to be an issue with data entry: ideally, all entries in the column have the same format. We can get an idea of how widespread this issue is by checking the length of each entry in the "Date" column.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+date_lengths = earthquakes.Date.str.len()
+date_lengths.value_counts()
+10    23409
+24        3
+Name: Date, dtype: int64
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+Looks like there are two more rows that has a date in a different format. Run the code cell below to obtain the indices corresponding to those rows and print the data.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+indices = np.where([date_lengths == 24])[1]
+print('Indices with corrupted data:', indices)
+earthquakes.loc[indices]
+Indices with corrupted data: [ 3378  7512 20650]
+Date	Time	Latitude	Longitude	Type	Depth	Depth Error	Depth Seismic Stations	Magnitude	Magnitude Type	...	Magnitude Seismic Stations	Azimuthal Gap	Horizontal Distance	Horizontal Error	Root Mean Square	ID	Source	Location Source	Magnitude Source	Status
+3378	1975-02-23T02:58:41.000Z	1975-02-23T02:58:41.000Z	8.017	124.075	Earthquake	623.0	NaN	NaN	5.6	MB	...	NaN	NaN	NaN	NaN	NaN	USP0000A09	US	US	US	Reviewed
+7512	1985-04-28T02:53:41.530Z	1985-04-28T02:53:41.530Z	-32.998	-71.766	Earthquake	33.0	NaN	NaN	5.6	MW	...	NaN	NaN	NaN	NaN	1.30	USP0002E81	US	US	HRV	Reviewed
+20650	2011-03-13T02:23:34.520Z	2011-03-13T02:23:34.520Z	36.344	142.344	Earthquake	10.1	13.9	289.0	5.8	MWC	...	NaN	32.3	NaN	NaN	1.06	USP000HWQP	US	US	GCMT	Reviewed
+3 rows × 21 columns
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+Given all of this information, it's your turn to create a new column "date_parsed" in the earthquakes dataset that has correctly parsed dates in it.
+
+Note: When completing this problem, you are allowed to (but are not required to) amend the entries in the "Date" and "Time" columns. Do not remove any rows from the dataset.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# TODO: Your code here
+earthquakes.loc[3378,"Date"]="02/23/1975"
+earthquakes.loc[7512,"Date"]="04/28/1985"
+earthquakes.loc[20650,"Date"]="03/13/2011"
+earthquakes["date_parsed"]=pd.to_datetime(earthquakes["Date"], format="%m/%d/%Y")
+# Check your answer
+q2.check()
+Correct
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# Lines below will give you a hint or solution code
+#q2.hint()
+#q2.solution()
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+3) Select the day of the month
+Create a Pandas Series day_of_month_earthquakes containing the day of the month from the "date_parsed" column.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# try to get the day of the month from the date column
+day_of_month_earthquakes = earthquakes['date_parsed'].dt.day
+day_of_month_earthquakes.head()
+​
+# Check your answer
+q3.check()
+Correct
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# Lines below will give you a hint or solution code
+#q3.hint()
+#q3.solution()
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+4) Plot the day of the month to check the date parsing
+Plot the days of the month from your earthquake dataset.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# TODO: Your code here!
+day_of_month_earthquakes.head()
+day_of_month_earthquakes=day_of_month_earthquakes.dropna()
+sns.distplot(day_of_month_earthquakes,kde=False,bins=31)
+<AxesSubplot:xlabel='date_parsed'>
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+Does the graph make sense to you?
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# Check your answer (Run this code cell to receive credit!)
+q4.check()
+Correct:
+
+The graph should make sense: it shows a relatively even distribution in days of the month,which is what we would expect.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+#
+# Line below will give you a hint
+#q4.hint()
+Hint: Remove the missing values, and then use sns.distplot() as follows:
+
+# remove na's
+day_of_month_earthquakes = day_of_month_earthquakes.dropna()
+
+# plot the day of the month
+sns.distplot(day_of_month_earthquakes, kde=False, bins=31)
+
+
+
+part 4
+characters encoding
+
+
+In this exercise, you'll apply what you learned in the Character encodings tutorial.
+
+Setup
+The questions below will give you feedback on your work. Run the following cell to set up the feedback system.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+from learntools.core import binder
+binder.bind(globals())
+from learntools.data_cleaning.ex4 import *
+print("Setup Complete")
+Setup Complete
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+Get our environment set up
+The first thing we'll need to do is load in the libraries we'll be using.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# modules we'll use
+import pandas as pd
+import numpy as np
+​
+# helpful character encoding module
+import chardet
+​
+# set seed for reproducibility
+np.random.seed(0)
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+1) What are encodings?
+You're working with a dataset composed of bytes. Run the code cell below to print a sample entry.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+sample_entry = b'\xa7A\xa6n'
+print(sample_entry)
+print('data type:', type(sample_entry))
+b'\xa7A\xa6n'
+data type: <class 'bytes'>
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+You notice that it doesn't use the standard UTF-8 encoding.
+
+Use the next code cell to create a variable new_entry that changes the encoding from "big5-tw" to "utf-8". new_entry should have the bytes datatype.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+big5-tw"
+new = sample_entry.decode("big5-tw")
+new_entry=new.encode("utf-8",errors='replace')
+print(new_entry)
+​
+# Check your answer
+q1.check()
+b'\xe4\xbd\xa0\xe5\xa5\xbd'
+Correct
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+#
+# Lines below will give you a hint or solution code
+#q1.hint()
+#q1.solution()
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+2) Reading in files with encoding problems
+Use the code cell below to read in this file at path "../input/fatal-police-shootings-in-the-us/PoliceKillingsUS.csv".
+
+Figure out what the correct encoding should be and read in the file to a DataFrame police_killings.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# TODO: Load in the DataFrame correctly
+police_killings=pd.read_csv("../input/fatal-police-shootings-in-the-us/PoliceKillingsUS.csv",encoding='Windows-1252')
+​
+# Check your answer
+q2.check()
+Correct
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+Feel free to use any additional code cells for supplemental work. To get credit for finishing this question, you'll need to run q2.check() and get a result of Correct.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# (Optional) Use this code cell for any additional work.
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+#
+# Lines below will give you a hint or solution code
+#q2.hint()
+#q2.solution()
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+3) Saving your files with UTF-8 encoding
+Save a version of the police killings dataset to CSV with UTF-8 encoding. Your answer will be marked correct after saving this file.
+
+Note: When using the to_csv() method, supply only the name of the file (e.g., "my_file.csv"). This saves the file at the filepath "/kaggle/working/my_file.csv".
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+my_file.csv
+# TODO: Save the police killings dataset to CSV
+police_killings.to_csv("my_file.csv")
+​
+# Check your answer
+q3.check()
+Correct
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# Lines below will give you a hint or solution code
+#q3.hint()
+#q3.solution()
+
+
+
+part 4
+Inconsistent data entry
+
+
+Setup
+The questions below will give you feedback on your work. Run the following cell to set up the feedback system.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+from learnt
+from learntools.core import binder
+binder.bind(globals())
+from learntools.data_cleaning.ex5 import *
+print("Setup Complete")
+Setup Complete
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+Get our environment set up
+The first thing we'll need to do is load in the libraries and dataset we'll be using. We use the same dataset from the tutorial.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# modules we'll use
+import pandas as pd
+import numpy as np
+​
+# helpful modules
+import fuzzywuzzy
+from fuzzywuzzy import process
+import chardet
+​
+# read in all our data
+professors = pd.read_csv("../input/pakistan-intellectual-capital/pakistan_intellectual_capital.csv")
+​
+# set seed for reproducibility
+np.random.seed(0)
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+Next, we'll redo all of the work that we did in the tutorial.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# convert to lower case
+professors['Country'] = professors['Country'].str.lower()
+# remove trailing white spaces
+professors['Country'] = professors['Country'].str.strip()
+​
+# get the top 10 closest matches to "south korea"
+countries = professors['Country'].unique()
+matches = fuzzywuzzy.process.extract("south korea", countries, limit=10, scorer=fuzzywuzzy.fuzz.token_sort_ratio)
+​
+def replace_matches_in_column(df, column, string_to_match, min_ratio = 47):
+    # get a list of unique strings
+    strings = df[column].unique()
+    
+    # get the top 10 closest matches to our input string
+    matches = fuzzywuzzy.process.extract(string_to_match, strings, 
+                                         limit=10, scorer=fuzzywuzzy.fuzz.token_sort_ratio)
+​
+    # only get matches with a ratio > 90
+    close_matches = [matches[0] for matches in matches if matches[1] >= min_ratio]
+​
+    # get the rows of all the close matches in our dataframe
+    rows_with_matches = df[column].isin(close_matches)
+​
+    # replace all rows with close matches with the input matches 
+    df.loc[rows_with_matches, column] = string_to_match
+    
+    # let us know the function's done
+    print("All done!")
+    
+replace_matches_in_column(df=professors, column='Country', string_to_match="south korea")
+countries = professors['Country'].unique()
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+1) Examine another column
+Write code below to take a look at all the unique values in the "Graduated from" column.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# TODO: Your code here
+professors['Graduated from'].unique()
+array(['Asian Institute of Technology',
+       'Balochistan University of Information Technology, Engineering and Management Sciences',
+       'University of Balochistan',
+       "Sardar Bahadur Khan Women's University",
+       'SRH Hochschule Heidelberg',
+       'Institute of Business Administration,Karachi', 'DUET,Karachi',
+       'University of Turbat', 'University of Vienna',
+       'Monash University', 'University of Stirling',
+       'Chinese Academy of Sciences', 'University of Innsbruck',
+       'Vienna University of Technology', 'University of Paris-Est',
+       'The University of Cambridge', 'Harbin Institute of Technology',
+       'University of Nice, Sophia Antipolis', 'The University of York',
+       'Galilée - Université Paris 13', 'University of Bedfordshire',
+       'North Dakota State University', 'Kyungpook National University',
+       'The University of Manchester',
+       'National University of Sciences and Technology',
+       'FAST– National University of Computer and Emerging Sciences',
+       'Capital University of Science & Technology', 'Gomal University',
+       'University of Malaya', 'KTH Royal Institute of Technology',
+       'University of Technology',
+       'COMSATS Institute of Information Technology',
+       'Government College University', 'Mohammad Ali Jinnah University',
+       'Shaheed Zulfikar Ali Bhutto Institute of Science and Technology',
+       'Blekinge Institute of Technology', 'University of Grenoble',
+       'Politecnico di Torino', '\xa0University of Missouri, KC',
+       'University of Bonn', 'University of Paris',
+       'The University of Leeds', '\xa0University of Windsor',
+       '\xa0National University of Sciences and Technology-NIIT',
+       'University of Trento', 'Stockholm University',
+       'University of New South Wales, Sydney',
+       'Kingston University London', 'Griffith University',
+       'University of Salford', 'Loughborough University',
+       'International Islamic University,Islamabad',
+       'University of Central Missouri',
+       'Riphah International University', 'University of BedfordShire',
+       'University of Illinois', 'University Of Oslo',
+       'Nancy 2 University', 'University of Limerick',
+       'Ghulam Ishaq Khan Institute of Science and Technology',
+       'University Of Waterloo', 'University of Stuttgart',
+       'Liverpool John Moores University', 'University Of Caen',
+       'Paris Tech University of Eurecom', 'University Of Salford',
+       'Lahore University of Management Sciences',
+       'Dresden University Of Technology, Dresden\xa0',
+       'COMSATS Institute of Information Technology,Vehari',
+       'COMSATS Institute of Information Technology,Wah Cantt',
+       'TU Berlin',
+       'FAST– National University of Computer and Emerging Sciences,Islamabad',
+       'Tsinghua University', 'The University of Auckland',
+       'IQRA University', 'Universiti Teknologi PETRONAS',
+       'COMSATS Institute of Information Technology,Islamabad',
+       'Razak School of Engineering and Advanced Technology, Universiti Teknologi Malaysia (UTM)',
+       'National University of Modern Languages',
+       'University of Engineering and Technology',
+       'University Institute of Information Technology',
+       'University of Arid Agriculture', 'Quaid-i-Azam University',
+       'Queen Mary University of London',
+       'Pakistan Institute of Engineering and Applied Sciences',
+       'Pohang University of Science and Technology',
+       'Uppsala University', 'Kyung Hee University',
+       'University of Liverpool', 'University of Sunderland',
+       'Mid Sweden University', 'Bahria University,Islamabad',
+       'Chosun University', 'University of Sussex',
+       'Paris Descartes University', 'University of Leicester',
+       'University of Porto', 'University of Manchester',
+       'Université Henri Poincaré, Nancy 1,', 'Bahria University',
+       'Centre for Advanced Studies in Engineering',
+       'Norwegian University of Science and Technology (NTNU),',
+       'The Islamia University of Bahawalpur ', 'Universiti Technologi',
+       'California State University', 'University of Genova',
+       'University of Engineering and Technology,Taxila',
+       'University of\xa0Liverpool John Moores University', 'Guildford',
+       'University of Bradford', 'Graz University of Technology',
+       'Huazhong University of Science and Technology (HUST), Wuhan',
+       'University of Konstanz',
+       'National University of Modern Languages,Islamabad',
+       'FAST– National University of Computer and Emerging Sciences,Lahore',
+       'Gwangju Institute of Science and Technology',
+       'University of Birmingham', 'Manchester University',
+       'Beijing Institute of Technology', 'University of Paisley',
+       'Univ of Porto/Univ of Aveiro Portugal/Uni of Minho',
+       'University of Peshawar', 'Universität Salzburg',
+       'Colorado State University', 'University of Virginia',
+       'University of Orleans', 'Zhejiang University',
+       'University of Leeds', 'Foundation University',
+       'Barani Institute of Information Technology', 'Abasyn University',
+       'Pir Mehr Ali Shah Arid Agriculture University', 'Preston',
+       'University of Bergen', 'Universtiy of Lahore',
+       'HITEC University,Taxila', 'Allama Iqbal Open University',
+       'University of Wales,Aberystwyth', '\xa0University of Bonn',
+       '\xa0Hongik University',
+       'Skolkovo Institute of Science and Technology,\xa0',
+       'Agricultural University Peshawar', 'National Textile University',
+       'FAST– National University of Computer and Emerging Sciences,Chiniot-Faisalabad',
+       'FAST– National University of Computer and Emerging Sciences,Peshawar',
+       '\xa0Boston University', 'Brunel University',
+       'George Washington University', 'University of the Punjab',
+       '\xa0University of Bedfordshire',
+       'University Of Southern California', 'Beihang University',
+       'Institute of Business Administration',
+       'Abdus Salam School of Mathematical Sciences,GC University',
+       'Linköping University',
+       'National College of Business Administration and Economics',
+       'Åbo Akademi University,', 'University of Central Punjab',
+       'University of Ulm', 'University of Agriculture',
+       'University of Notre Dame Indiana\xa0',
+       'Punjab University College of Information Technology',
+       'Ilmenau University of Technology', ' Iowa State University',
+       ' University of Innsbruck', 'Vrije University, Amsterdam',
+       ' Columbia University', 'University of Freiburg',
+       ' Delft University of Technology',
+       ' University of Texas at Arlington (UTA)', ' University of Turin',
+       ' University of Central Florida', 'Saarland University',
+       'University of Central Florida', 'Oxford Brookes University',
+       'Information Technology University (ITU)',
+       'University of Canterbury', 'University of Patras',
+       'Middle East Technical University', 'University of Bristol',
+       'University of Southern California',
+       'Northeastern University,Boston', 'Purdue University',
+       'University of Plymouth', 'University of South Australia',
+       'Stanford University', 'Chalmers University of Technology',
+       'Massachusetts Institute of Technology',
+       'Sapienza University of Rome',
+       'Eindhoven University of Technology (TU/e)',
+       'United Nations University International Institute for Software Technology (UNU-IIST)',
+       'Georgetown University,DC', 'RWTH Aachen University',
+       'Columbia University',
+       'Rutgers State University of New Jersey, NJ',
+       'University of Florida', 'Technical University of Braunschweig',
+       'Carnegie Mellon University, Pittsburgh',
+       'The Ohio State University', 'National University of Singapore',
+       'University of British Columbia', 'University of Pittsburgh',
+       'The State University of New Jersey',
+       'The University of Texas at Austin',
+       'Imperial College, University of London',
+       'University of Colorado\xa0', 'University of Bath',
+       'Tilburg University', 'Pompeu Fabra University Barcelona',
+       'University of Management and Technology',
+       'COMSATS Institute of Information Technology,Lahore',
+       'University of Agriculture, Faisalabad\xa0',
+       'University of Engineering & Technology',
+       'University of Agriculture, Faisalabad',
+       'Fatima Jinnah Women University, Rawalpindi',
+       'Kohat University of Science & Technology, Kohat',
+       'Virtual University of Pakistan', 'Bahauddin Zakariya University',
+       'University of the Punjab,Gujranwala',
+       'Lahore College for Women University',
+       'Superior University, Lahore',
+       'Shaheed Zulfikar Ali Bhutto Institute of Science and Technology,Islamabad',
+       'University of South Florida', 'Politecnico di Milano',
+       'Abdul Wali Khan University, Mardan', 'University of Lahore',
+       'Minhaj University Lahore', 'Lahore Leads University',
+       'Middlesex University', 'Beijing Institute of Technology Beijing',
+       'Beaconhouse National University', 'Hamdard University',
+       'University Paris', 'Sindh University',
+       'NED University of Engineering And Technology',
+       'Staffordshire University', 'DePaul University, Chicago',
+       'University of Kent',
+       'Mehran University of Engineering & Technology',
+       'Quaid-e-Awam University of Engineering, Science & Technology',
+       'Shah Abdul Latif University, Khairpur',
+       'Sindh Agriculture University', 'Swansea',
+       'University of Shanghai for Science and Technology',
+       'Griffith University,Nathan Campus', 'University of Essex',
+       'Xiamen university', 'Wayne State University',
+       'The Queens University of Belfast', 'Sungkyunkwan University',
+       'Nanyang Tech University', "Universite d'Evry Val d'Essonne",
+       'Sir Syed University of Engineering and Technology',
+       'New York Institute of Technology', 'Fedral Urdu University',
+       'ISRA University', 'University of Karachi',
+       'South Asian University',
+       'Capital University of Science and Technology',
+       'University of Manchester Institute of Science and Technology',
+       'The University of Birmingham',
+       'Max Planck Institute for Computer Science',
+       'George Mason University', 'University of Southampton',
+       'Temple University', 'University of Bayreuth',
+       'Muroran Institute of Technology,Hokkaido',
+       'University of Bologna', 'International Islamic University',
+       'PAF-Karachi Institute of Economics and Technology',
+       'Institute of Business Administration,Sukkur',
+       'Myongji University', 'State University of New York System',
+       'SSindh Agriculture University', 'London University',
+       'Universiti Putra Malaysia Putra',
+       'University of Rome Tor Vergata', 'University of Mississippi\xa0',
+       'University of Wales', 'University of Northampton',
+       'University of Abertay Dundee',
+       'Biztek Institute Of Business & Technology,Karachi',
+       'University of Surrey', 'Jinnah University for Women',
+       '\xa0Nanyang Technological University',
+       'Tokyo Institute of Technology', 'NCSU',
+       'Usman Institute of Technology', 'Hanyang University, Ansan',
+       'BUKC', 'Universtiy of Karachi', 'Pace University, New York',
+       'INSA de Lyon, Rhone', 'University of Dundee',
+       'Illinois Institute of Technology',
+       'City University of Science and Technology',
+       'Usman Institute of Technology (Hamdard University)',
+       'University of Malaga', 'Manchester Metropolitan University',
+       'Kyushu University,Fukuoka',
+       'King Abdullah University of Science and Technology',
+       'INRIA Saclay Ile-de-France', 'Université de la Rochelle',
+       'University of South Brittany', 'Aston University, Birmingham',
+       'University of Agriculture Faisalabad',
+       'Hamburg University of Technology',
+       'Government College University, Faisalabad', 'JKU',
+       'University of Oviedo',
+       'Beijing University of Posts & Telecommunications',
+       'Government College University,Faisalabad',
+       'Nottingham Trent University', 'University of Glasgow',
+       'Coventry University',
+       'Riphah International University,Faisalabad',
+       'Australian National University, Caneberra',
+       'Swedish University of Agricultural Sciences, Uppsala',
+       'University of Gujrat', 'IQRA University,Islamabad',
+       'Jonkoping University', 'Colorado Technical University',
+       'Cranfield University', 'Technical University of Graz',
+       'University of York', 'Brock University Canada',
+       'University of Westminster', 'University of Saarland',
+       'The University of Queensland', 'University of Rochester',
+       'Islamia College University ',
+       'IBMS KP Agricultural University Peshawar',
+       'University of Kuala Lumpur', 'University of Regina', 'TU Wien',
+       'Swinburne University Of Technology',
+       'Institute Of Managment Sciences, Peshawar',
+       'Universiti Tun Hussein Onn Malaysia',
+       'Institute of Management Sciences, Peshawar',
+       'University of Huddersfield',
+       'University of Engineering and Technology,Peshawar',
+       'IQRA University,Karachi', 'John Moorse University, Liverpool',
+       'CECOS University of Information Technology and Emerging Sciences,Peshawar',
+       'University of the West Scotland', 'Concordia University,Montreal',
+       'JNU', 'Grenoble', 'Florida Atlantic University',
+       'Seoul National University'], dtype=object)
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+Do you notice any inconsistencies in the data? Can any of the inconsistencies in the data be fixed by removing white spaces at the beginning and end of cells?
+
+Once you have answered these questions, run the code cell below to get credit for your work.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# Check your answer (Run this code cell to receive credit!)
+q1.check()
+Correct:
+
+There are inconsistencies that can be fixed by removing white spaces at the beginning and end of cells. For instance, "University of Central Florida" and " University of Central Florida" both appear in the column.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+#
+# Line below will give you a hint
+#q1.hint()
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+2) Do some text pre-processing
+Convert every entry in the "Graduated from" column in the professors DataFrame to remove white spaces at the beginning and end of cells.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# TODO: Your code here
+professors['Graduated from'] = professors['Graduated from'].str.strip()
+​
+​
+# Check your answer
+#q2.check()
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# Lines below will give you a hint or solution code
+#q2.hint()
+#2.solution()
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+3) Continue working with countries
+In the tutorial, we focused on cleaning up inconsistencies in the "Country" column. Run the code cell below to view the list of unique values that we ended with.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# get all the unique values in the 'City' column
+countries = professors['Country'].unique()
+​
+# sort them alphabetically and then take a closer look
+countries.sort()
+countries
+array([' Germany', ' New Zealand', ' Sweden', ' USA', 'Australia',
+       'Austria', 'Canada', 'China', 'Finland', 'France', 'Greece',
+       'HongKong', 'Ireland', 'Italy', 'Japan', 'Macau', 'Malaysia',
+       'Mauritius', 'Netherland', 'New Zealand', 'Norway', 'Pakistan',
+       'Portugal', 'Russian Federation', 'Saudi Arabia', 'Scotland',
+       'Singapore', 'South Korea', 'SouthKorea', 'Spain', 'Sweden',
+       'Thailand', 'Turkey', 'UK', 'USA', 'USofA', 'Urbana', 'germany'],
+      dtype=object)
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+Take another look at the "Country" column and see if there's any more data cleaning we need to do.
+
+It looks like 'usa' and 'usofa' should be the same country. Correct the "Country" column in the dataframe so that 'usofa' appears instead as 'usa'.
+
+Use the most recent version of the DataFrame (with the whitespaces at the beginning and end of cells removed) from question 2.
+
+
+arrow_upward
+
+arrow_downward
+
+delete
+
+unfold_less
+
+more_vert
+# TODO: Your code here!
+matches=fuzzywuzzy.process.extract("usa",countries,limit=10,scorer=fuzzywuzzy.fuzz.token_sort_ratio)
+replace_matches_in_column(df=professors,column='Country',string_to_match="usa",min_ratio=70)
+
+# Check your answer
+#q3.check()
+
+
